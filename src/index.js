@@ -4,7 +4,35 @@ const characterInformation = document.querySelector("#detailed-info");
 const characterBar = document.querySelector("#character-bar");
 const characterUrl = "http://localhost:3000/characters";
 
+const form = document.getElementById("votes-form")
 
+form.addEventListener('submit', (e) =>{
+    e.preventDefault();
+    const currentVotes =parseInt(characterVotes.textContent, 10)
+    const newVotes = parseInt(e.target.votes.value, 10)
+    characterVotes.textContent =(currentVotes+=newVotes)
+    form.reset()
+    fetch("http://localhost:3000/characters")
+    .then (res => res.json())
+    .then (characters =>{
+        const characterName = document.querySelector('#name')
+        const characterID = characters.find(character => character.name === characterName.textContent)
+        fetch(`${"http://localhost:3000/characters"}/${characterID.id}`,{
+            method: 'PATCH',
+            headers: {
+                "Content-Type" : 'application/json'
+            },
+            body:JSON.stringify({
+                votes: characterVotes.textContent
+            })
+        })
+        .then(res => res.json())
+        .then(character =>{
+            characterVotes.textContent = character.votes
+            console.log(character.votes)
+        })
+    })
+})
 
 // adding character names to the bar
 const addToCharacterBar = (character) => {

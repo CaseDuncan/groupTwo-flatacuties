@@ -1,3 +1,43 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 // Adding an event listener to the reset button
 const resetButton = document.querySelector('#reset-btn')
 resetButton.addEventListener('click' , (event) =>{
